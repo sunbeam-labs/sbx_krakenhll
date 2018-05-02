@@ -48,7 +48,7 @@
  2. Add the new config options to your config file
  
   ```bash
-  cat sunbeam/extensions/sbx_krakenhll/config.yml >> my_config.yml
+  cat sunbeam/extensions/sbx_krakenhll/config.yml >> sunbeam_config.yml
   ```
  
  3. Run time
