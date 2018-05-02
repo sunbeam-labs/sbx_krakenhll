@@ -4,7 +4,7 @@
 
 rule all_krakenhll:
     input:
-        str(CLASSIFY_FP/'{db}'/'all_samples.tsv',
+        expand(str(CLASSIFY_FP/'{db}'/'all_samples.tsv'),
             db = ['krakenhll','krakenhll_2'])
 
 
