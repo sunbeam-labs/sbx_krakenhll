@@ -26,7 +26,7 @@ rule krakenhll_classify:
     shell:
         """
         krakenhll \
-        --db {Cfg[classify][krakenhll_db1_fp]} \
+        --db {Cfg[sbx_krakenhll][krakenhll_db1_fp]} \
         --fastq-input --paired  \
         --threads {threads} \
         --output {output.raw} \
@@ -104,7 +104,7 @@ rule krakenhll__report_virus:
     shell:
         """
         krakenhll_-report \
-        --db {Cfg[classify][krakenhll_db2_fp]} \
+        --db {Cfg[sbx_krakenhll][krakenhll_db2_fp]} \
         {input} > {output}
         """
 
