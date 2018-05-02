@@ -1,0 +1,4 @@
+sbx_krakenhll:
+  krakenhll_db1_fp: bacteriaDB
+  krakenhll_db2_fp: virusALL
+  threads: 8

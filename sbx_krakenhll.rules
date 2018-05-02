@@ -1,0 +1,132 @@
+# -*- mode: Snakemake -*-
+#
+# Rules for running krakenhll 
+
+rule all_krakenhll:
+    input:
+        str(CLASSIFY_FP/'{db}'/'all_samples.tsv',
+            db = ['krakenhll','krakenhll_2'])
+
+
+## FIRST round KrakenHLL for bacteria
+rule krakenhll_classify:
+    input:
+        expand(
+            str(QC_FP/'decontam'/'{{sample}}_{rp}.fastq'),
+            rp = Pairs)
+    output:
+        raw = str(CLASSIFY_FP/'krakenhll'/'raw'/'{sample}-raw.tsv'),
+        reports = str(CLASSIFY_FP/'krakenhll'/'reports'/'{sample}-reports.tsv'),
+        unclassified = str(CLASSIFY_FP/'krakenhll'/'unclassified'/'{sample}.fasta'),
+        classified = str(CLASSIFY_FP/'krakenhll'/'classified'/'{sample}.fasta')
+    params:
+        paired_end = "--paired" if Cfg['all']['paired_end'] else ""
+    threads:
+        Cfg['classify']['threads']
+    shell:
+        """
+        krakenhll \
+        --db {Cfg[classify][krakenhll_db1_fp]} \
+        --fastq-input --paired  \
+        --threads {threads} \
+        --output {output.raw} \
+        --report-file {output.reports} \
+        --unclassified-out {output.unclassified} \
+        --classified-out {output.classified} \
+        {input}
+        """
+
+rule krakenhll_report:
+    input:
+        str(CLASSIFY_FP/'krakenhll'/'raw'/'{sample}-raw.tsv')
+    output:
+        str(CLASSIFY_FP/'krakenhll'/'taxa'/'{sample}-taxa.tsv')
+    shell:
+        """
+        krakenhll-report \
+        --db {Cfg[classify][krakenhll_db1_fp]} \
+        {input} > {output}
+        """
+
+rule krakenhll_biom:
+    input:
+        expand(str(CLASSIFY_FP/'krakenhll'/'taxa'/'{sample}-taxa.tsv'),
+               sample=Samples.keys())
+    output:
+        str(CLASSIFY_FP/'krakenhll'/'all_samples.biom')
+    shell:
+        """
+        kraken-biom --max D -o {output} {input}
+        """
+
+rule classic_biom_hll:
+    input:
+        str(CLASSIFY_FP/'krakenhll'/'all_samples.biom')
+    output:
+        str(CLASSIFY_FP/'krakenhll'/'all_samples.tsv')
+    shell:
+        """
+        biom convert -i {input} -o {output} \
+        --to-tsv --header-key=taxonomy --process-obs-metadata=taxonomy \
+        --output-metadata-id="Consensus Lineage"
+        """
+
+## Second round KrakenHLL for virus
+
+rule krakenhll__classify_virus:
+    input:
+        str(CLASSIFY_FP/'krakenhll'/'unclassified'/'{sample}.fasta')
+    output:
+        raw = str(CLASSIFY_FP/'krakenhll_2'/'raw'/'{sample}-raw.tsv'),
+        reports = str(CLASSIFY_FP/'krakenhll_2'/'reports'/'{sample}-reports.tsv'),
+        unclassified = str(CLASSIFY_FP/'krakenhll_2'/'unclassified'/'{sample}.fasta'),
+        classified = str(CLASSIFY_FP/'krakenhll_2'/'classified'/'{sample}.fasta')
+    threads:
+        Cfg['classify']['threads']
+    shell:
+        """
+        krakenhll_ \
+        --db {Cfg[classify][krakenhll_db2_fp]} \
+        --fasta-input \
+        --threads {threads} \
+        --output {output.raw} \
+        --report-file {output.reports} \
+        --unclassified-out {output.unclassified} \
+        --classified-out {output.classified} \
+        {input}
+        """
+
+rule krakenhll__report_virus:
+    input:
+        str(CLASSIFY_FP/'krakenhll_2'/'raw'/'{sample}-raw.tsv')
+    output:
+        str(CLASSIFY_FP/'krakenhll_2'/'taxa'/'{sample}-taxa.tsv')
+    shell:
+        """
+        krakenhll_-report \
+        --db {Cfg[classify][krakenhll_db2_fp]} \
+        {input} > {output}
+        """
+
+rule krakenhll__biom_virus:
+    input:
+        expand(str(CLASSIFY_FP/'krakenhll_2'/'taxa'/'{sample}-taxa.tsv'),
+               sample=Samples.keys())
+    output:
+        str(CLASSIFY_FP/'krakenhll_2'/'all_samples.biom')
+    shell:
+        """
+        kraken-biom --max D -o {output} {input}
+        """
+
+rule classic_biom_virus:
+    input:
+        str(CLASSIFY_FP/'krakenhll_2'/'all_samples.biom')
+    output:
+        str(CLASSIFY_FP/'krakenhll_2'/'all_samples.tsv')
+    shell:
+        """
+        biom convert -i {input} -o {output} \
+        --to-tsv --header-key=taxonomy --process-obs-metadata=taxonomy \
+        --output-metadata-id="Consensus Lineage"
+        """
