@@ -56,5 +56,8 @@
   ```bash
   snakemake --configfile my_config.yml all_krakenhll
   ```
+ 4. Fun part
+ 
+  Try to play with `krakenhll-extract-reads` to get the classified reads for a taxid 😬
  
 
