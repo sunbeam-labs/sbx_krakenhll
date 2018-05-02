@@ -22,7 +22,7 @@ rule krakenhll_classify:
     params:
         paired_end = "--paired" if Cfg['all']['paired_end'] else ""
     threads:
-        Cfg['classify']['threads']
+        Cfg['sbx_krakenhll']['threads']
     shell:
         """
         krakenhll \
@@ -44,7 +44,7 @@ rule krakenhll_report:
     shell:
         """
         krakenhll-report \
-        --db {Cfg[classify][krakenhll_db1_fp]} \
+        --db {Cfg[sbx_krakenhll][krakenhll_db1_fp]} \
         {input} > {output}
         """
 
@@ -82,11 +82,11 @@ rule krakenhll__classify_virus:
         unclassified = str(CLASSIFY_FP/'krakenhll_2'/'unclassified'/'{sample}.fasta'),
         classified = str(CLASSIFY_FP/'krakenhll_2'/'classified'/'{sample}.fasta')
     threads:
-        Cfg['classify']['threads']
+        Cfg['sbx_krakenhll']['threads']
     shell:
         """
         krakenhll_ \
-        --db {Cfg[classify][krakenhll_db2_fp]} \
+        --db {Cfg[sbx_krakenhll][krakenhll_db2_fp]} \
         --fasta-input \
         --threads {threads} \
         --output {output.raw} \
