@@ -136,7 +136,7 @@ rule krakenhll_extract_reads:
         reads = str(CLASSIFY_FP/'krakenhll'/'unclassified'/'{sample}.fasta'),
         raw = str(CLASSIFY_FP/'krakenhll_2'/'raw'/'{sample}-raw.tsv')
     output:
-        str(CLASSIFY_FP/'krakenhll_2'/'42789'/'{sample}.fasta'),
+        str(CLASSIFY_FP/'krakenhll_2'/'42789'/'{sample}.fasta')
     shell:
         """
         krakenhll-extract-reads \
