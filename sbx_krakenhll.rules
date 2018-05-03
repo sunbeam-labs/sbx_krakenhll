@@ -130,3 +130,17 @@ rule classic_biom_virus:
         --to-tsv --header-key=taxonomy --process-obs-metadata=taxonomy \
         --output-metadata-id="Consensus Lineage"
         """
+
+rule krakenhll_extract_reads:
+    input:
+        reads = str(CLASSIFY_FP/'krakenhll'/'unclassified'/'{sample}.fasta'),
+        raw = str(CLASSIFY_FP/'krakenhll_2'/'raw'/'{sample}-raw.tsv')
+    output:
+        str(CLASSIFY_FP/'krakenhll_2'/'42789'/'{sample}.fasta'),
+    shell:
+        """
+        krakenhll-extract-reads \
+        -t {Cfg[sbx_krakenhll][krakenhll_db2_fp]} \
+        -a -f \
+        42789 {input.raw} {input.reads} > {output}
+        """
