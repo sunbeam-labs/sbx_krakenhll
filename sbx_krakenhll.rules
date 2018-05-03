@@ -73,7 +73,7 @@ rule classic_biom_hll:
 
 ## Second round KrakenHLL for virus
 
-rule krakenhll__classify_virus:
+rule krakenhll_classify_virus:
     input:
         str(CLASSIFY_FP/'krakenhll'/'unclassified'/'{sample}.fasta')
     output:
@@ -96,7 +96,7 @@ rule krakenhll__classify_virus:
         {input}
         """
 
-rule krakenhll__report_virus:
+rule krakenhll_report_virus:
     input:
         str(CLASSIFY_FP/'krakenhll_2'/'raw'/'{sample}-raw.tsv')
     output:
@@ -108,7 +108,7 @@ rule krakenhll__report_virus:
         {input} > {output}
         """
 
-rule krakenhll__biom_virus:
+rule krakenhll_biom_virus:
     input:
         expand(str(CLASSIFY_FP/'krakenhll_2'/'taxa'/'{sample}-taxa.tsv'),
                sample=Samples.keys())
