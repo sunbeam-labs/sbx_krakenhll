@@ -103,7 +103,7 @@ rule krakenhll__report_virus:
         str(CLASSIFY_FP/'krakenhll_2'/'taxa'/'{sample}-taxa.tsv')
     shell:
         """
-        krakenhll_-report \
+        krakenhll-report \
         --db {Cfg[sbx_krakenhll][krakenhll_db2_fp]} \
         {input} > {output}
         """
