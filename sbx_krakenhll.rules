@@ -132,7 +132,7 @@ rule classic_biom_virus:
         """
 
 ## After playing with the results, I want to extract all the reads for taxid: 42789
-rule krakenhll_extract_reads:
+rule krakenhll_extract_reads_fasta:
     input:
         reads = str(CLASSIFY_FP/'krakenhll'/'unclassified'/'{sample}.fasta'),
         raw = str(CLASSIFY_FP/'krakenhll_2'/'raw'/'{sample}-raw.tsv')
@@ -148,3 +148,4 @@ rule krakenhll_extract_reads:
 
 rule _all_reads:
     expand(str(CLASSIFY_FP/'krakenhll_2'/'42789'/'{sample}.fasta'), sample = Samples.keys())
+  
