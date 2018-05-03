@@ -85,7 +85,7 @@ rule krakenhll__classify_virus:
         Cfg['sbx_krakenhll']['threads']
     shell:
         """
-        krakenhll_ \
+        krakenhll \
         --db {Cfg[sbx_krakenhll][krakenhll_db2_fp]} \
         --fasta-input \
         --threads {threads} \
