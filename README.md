@@ -1,4 +1,4 @@
-# sbx_krakenhll
+# sbx_krakenhll ✔️
 
 ## Installation [KrakenHLL](https://github.com/fbreitwieser/krakenhll)🐙
 
