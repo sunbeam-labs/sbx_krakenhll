@@ -149,3 +149,23 @@ rule krakenhll_extract_reads_fasta:
 rule _all_reads:
     expand(str(CLASSIFY_FP/'krakenhll_2'/'42789'/'{sample}.fasta'), sample = Samples.keys())
   
+
+## Spades doesn't take fasta files 
+rule krakenhll_extract_reads_fastq:
+    input:
+        reads = expand(
+            str(QC_FP/'decontam'/'{{sample}}_{rp}.fastq'),
+            rp = Pairs),
+        raw = str(CLASSIFY_FP/'krakenhll_2'/'raw'/'{sample}-raw.tsv')
+    output:
+        str(CLASSIFY_FP/'krakenhll_2'/'42789'/'{sample}.fasta')
+    params:
+        fp = str(QC_FP/'decontam'),
+        sample = "{sample}"
+    shell:
+        """
+        krakenhll-extract-reads  \
+        -p -t {Cfg[sbx_krakenhll][krakenhll_db2_fp]}/taxDB \
+        42789 {input.raw} {params.fp}/{params.sample}_%.fastq > {output}
+        """
+
