@@ -141,7 +141,7 @@ rule krakenhll_extract_reads_fasta:
     shell:
         """
         krakenhll-extract-reads \
-        -t {Cfg[sbx_krakenhll][krakenhll_db2_fp]} \
+        -t {Cfg[sbx_krakenhll][krakenhll_db2_fp]}/taxDB \
         -a -f \
         42789 {input.raw} {input.reads} > {output}
         """
