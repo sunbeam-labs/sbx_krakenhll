@@ -158,7 +158,7 @@ rule krakenhll_extract_reads_fastq:
             rp = Pairs),
         raw = str(CLASSIFY_FP/'krakenhll_2'/'raw'/'{sample}-raw.tsv')
     output:
-        str(CLASSIFY_FP/'krakenhll_2'/'42789'/'{sample}.fasta')
+        str(CLASSIFY_FP/'krakenhll_2'/'42789'/'{sample}.fastq')
     params:
         fp = str(QC_FP/'decontam'),
         sample = "{sample}"
