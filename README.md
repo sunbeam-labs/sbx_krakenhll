@@ -1,7 +1,9 @@
-# sbx_krakenhll ✔️
+# sbx_krakenhll [beta]
 
 ## Installation [KrakenHLL](https://github.com/fbreitwieser/krakenhll)🐙
 
+  Make sure you have the latest version of KrakenHLL installed.
+  
   ```bash
   git clone https://github.com/fbreitwieser/krakenhll
   cd krakenhll
