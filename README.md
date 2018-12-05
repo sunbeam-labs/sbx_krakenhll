@@ -1,6 +1,6 @@
-# sbx_krakenhll [beta]
+# sbx_krakenuniq
 
-## Installation [KrakenHLL](https://github.com/fbreitwieser/krakenhll)🐙
+## Installation [KrakenUniq](https://github.com/fbreitwieser/krakenuniq)🐙
 
   Make sure you have the latest version of KrakenHLL installed.
   
