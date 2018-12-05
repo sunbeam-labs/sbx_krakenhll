@@ -28,10 +28,10 @@
   ```bash
   DBNAME=virus-neighbors
   krakenuniq-download --db $DBNAME taxonomy
-  krakenhll-download refseq/viral/Any --db $DBNAME --dust --threads 8
+  krakenuniq-download refseq/viral/Any --db $DBNAME --dust --threads 8
   krakenuniq-download viral-neighbors --db $DBNAME --dust --threads 8
   
-  krakenhll-build -build --db $DBNAME --kmer-len 25 \
+  krakenuniq-build -build --db $DBNAME --kmer-len 25 \
                 --jellyfish-hash-size 6400M \
                 --taxids-for-sequences --taxids-for-genomes --threads 8
   dump_taxdb taxDB taxonomy/names.dmp taxonomy/nodes.dmp
