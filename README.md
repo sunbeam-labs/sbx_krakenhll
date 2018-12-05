@@ -26,10 +26,10 @@
 ## Build KrakenHLL database for Virus all genomes
 
   ```bash
-  DBNAME=virusAll
-  krakenhll-download --db $DBNAME taxonomy
+  DBNAME=virus-neighbors
+  krakenuniq-download --db $DBNAME taxonomy
   krakenhll-download refseq/viral/Any --db $DBNAME --dust --threads 8
-  krakenhll-download   viral-neighbors --db $DBNAME --dust --threads 8
+  krakenuniq-download viral-neighbors --db $DBNAME --dust --threads 8
   
   krakenhll-build -build --db $DBNAME --kmer-len 25 \
                 --jellyfish-hash-size 6400M \
