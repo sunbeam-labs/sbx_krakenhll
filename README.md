@@ -14,11 +14,11 @@
 ## Build KrakenHLL database for Bacteria complete genomes
 
   ```bash
-  DBNAME=bacteriaDB
-  krakenhll-download --db $DBNAME taxonomy
-  krakenhll-download refseq/bacteria --db $DBNAME --dust --threads 8
+  DBNAME=bacteria
+  krakenuniq-download --db $DBNAME taxonomy
+  krakenuniq-download refseq/bacteria --db $DBNAME --dust --threads 20
   
-  krakenhll-build -build --db $DBNAME --jellyfish-hash-size 6400M \
+  krakenuniq-build -build --db $DBNAME --jellyfish-hash-size 6400M \
                 --taxids-for-sequences --taxids-for-genomes --threads 8
   dump_taxdb taxDB taxonomy/names.dmp taxonomy/nodes.dmp
   ```
