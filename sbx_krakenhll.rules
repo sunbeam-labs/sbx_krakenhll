@@ -140,7 +140,7 @@ rule krakenhll_extract_reads_fasta:
         str(CLASSIFY_FP/'krakenhll_2'/'42789'/'{sample}.fasta')
     shell:
         """
-        krakenhll-extract-reads \
+        krakenuniq-extract-reads \
         -t {Cfg[sbx_krakenhll][krakenhll_db2_fp]}/taxDB \
         -a -f \
         42789 {input.raw} {input.reads} > {output}
@@ -164,7 +164,7 @@ rule krakenhll_extract_reads_fastq:
         sample = "{sample}"
     shell:
         """
-        krakenhll-extract-reads  \
+        krakenuniq-extract-reads  \
         -p -t {Cfg[sbx_krakenhll][krakenhll_db2_fp]}/taxDB \
         42789 {input.raw} {params.fp}/{params.sample}_%.fastq > {output}
         """
