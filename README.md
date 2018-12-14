@@ -5,9 +5,9 @@
   Make sure you have the latest version of KrakenHLL installed.
   
   ```bash
-  git clone https://github.com/fbreitwieser/krakenhll
-  cd krakenhll
-  bash install_krakenhll.sh $HOME/bin/
+  git clone https://github.com/fbreitwieser/krakenuniq.git
+  cd krakenuniq
+  bash install_krakenuniq.sh $HOME/bin/
   export PATH=$PATH:$HOME/bin/
   ```
   
